@@ -42,13 +42,10 @@ export function prepareAnimalResponseAll(animals, isAnonymous) {
 export function prepareResponse(data, req, isAnonymous) {
   const response = data.toJSON()
   // Set owner flag for frontend ui
-  // Check isOwner and userId if visitor === true
-  if ((req.isVisitor || req.isAdmin) === true) {
-    if (typeof req.isOwnerMe !== 'undefined') {
-      response.isOwnerMe = req.isOwnerMe
-    } else {
-      response.isOwnerMe = (data.animal.userId === req.user.id)
-    }
+  if (typeof req.isOwnerMe !== 'undefined') {
+    response.isOwnerMe = req.isOwnerMe
+  } else {
+    response.isOwnerMe = (data.animal.userId === req.user.id)
   }
 
   // Remove userId from animal to stay anonymous
